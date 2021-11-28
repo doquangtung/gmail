@@ -1,7 +1,9 @@
 package com.example.gmail;
 
 import android.content.Context;
-import android.text.Layout;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.List;
+import java.util.Random;
 
 public class AdapterRow extends BaseAdapter {
     private Context context;
@@ -49,6 +52,17 @@ public class AdapterRow extends BaseAdapter {
         title.setText(row.getTitle());
         body.setText(row.getBody());
         icon.setText(String.valueOf(title.getText().toString().charAt(0)));
+
+        Random rnd = new Random();
+        int colorB = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+        int colorT = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+        while (colorT == colorB){
+            colorT = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+        }
+        Drawable background = icon.getBackground();
+        GradientDrawable shape = (GradientDrawable) background;
+        shape.setColor(colorB);
+        icon.setTextColor(colorT);
 
         return convertView;
 
